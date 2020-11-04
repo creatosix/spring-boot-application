@@ -1,75 +1,39 @@
 package com.example.conferenceDemo.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import org.hibernate.annotations.Type;
+import java.io.Serializable;
 
-import javax.persistence.*;
-import java.util.Arrays;
-import java.util.List;
+public class Speaker implements Serializable {
+    private Long speakerId;
 
-@Entity(name = "speakers")
-@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
-public class Speaker {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long speaker_id;
-
-    private String first_name;
-    private String last_name;
+    private String firstName;
+    private String lastName;
     private String title;
     private String company;
-    private String speaker_bio;
+    private String speakerBio;
 
-    @Lob
-    @Type(type="org.hibernate.type.BinaryType")
-    private byte[] speaker_photo;
 
-    public byte[] getSpeaker_photo() {
-        return speaker_photo;
+    public Long getSpeakerId() {
+        return speakerId;
     }
 
-    public void setSpeaker_photo(byte[] speaker_photo) {
-        this.speaker_photo = speaker_photo;
+    public void setSpeakerId(Long speakerId) {
+        this.speakerId = speakerId;
     }
 
-    @ManyToMany(mappedBy = "speakers")
-    @JsonIgnore
-
-    private List<Session> sessions;
-
-    public List<Session> getSessions() {
-        return sessions;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setSessions(List<Session> sessions) {
-        this.sessions = sessions;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public Speaker(){
-    }
-    public Long getSpeaker_id() {
-        return speaker_id;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setSpeaker_id(Long speaker_id) {
-        this.speaker_id = speaker_id;
-    }
-
-    public String getFirst_name() {
-        return first_name;
-    }
-
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
-    }
-
-    public String getLast_name() {
-        return last_name;
-    }
-
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getTitle() {
@@ -88,25 +52,27 @@ public class Speaker {
         this.company = company;
     }
 
-    public String getSpeaker_bio() {
-        return speaker_bio;
+    public String getSpeakerBio() {
+        return speakerBio;
     }
 
-    public void setSpeaker_bio(String speaker_bio) {
-        this.speaker_bio = speaker_bio;
+    public void setSpeakerBio(String speakerBio) {
+        this.speakerBio = speakerBio;
     }
 
     @Override
     public String toString() {
         return "Speaker{" +
-                "speaker_id=" + speaker_id +
-                ", first_name='" + first_name + '\'' +
-                ", last_name='" + last_name + '\'' +
+                "speakerId=" + speakerId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
                 ", title='" + title + '\'' +
                 ", company='" + company + '\'' +
-                ", speaker_bio='" + speaker_bio + '\'' +
-                ", speaker_photo=" + Arrays.toString(speaker_photo) +
-                ", sessions=" + sessions +
+                ", speakerBio='" + speakerBio + '\'' +
                 '}';
     }
+
+    public Speaker() {
+    }
 }
+
