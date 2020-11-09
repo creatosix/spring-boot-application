@@ -14,11 +14,13 @@ import org.springframework.kafka.support.serializer.JsonSerializer;
 import java.util.HashMap;
 import java.util.Map;
 
+import static org.apache.kafka.common.security.auth.SecurityProtocol.PLAINTEXT;
+
 @Configuration
 public class KafkaConfiguration {
     public ProducerFactory<String, Speaker> producerFactory() {
         Map<String, Object> config = new HashMap<>();
-        config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092");
+        config.put("bootstrap.servers", "localhost:9092");
         config.put("key.serializer",
                 "org.apache.kafka.common.serialization.StringSerializer");
         config.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, JsonSerializer.class);
@@ -26,7 +28,6 @@ public class KafkaConfiguration {
        /* config.put("value.serializer",
         "org.apache.kafka.common.serialization.JsonSerializer");
         config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);*/
-
         return new DefaultKafkaProducerFactory<>(config);
         
     }
