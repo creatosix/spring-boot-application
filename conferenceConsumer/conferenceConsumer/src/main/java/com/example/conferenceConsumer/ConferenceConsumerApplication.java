@@ -11,6 +11,7 @@ public class ConferenceConsumerApplication {
 		SpringApplication.run(ConferenceConsumerApplication.class, args);
 		ConsumerConfig consumerConfig = new ConsumerConfig();
 		consumerConfig.receive();
+
 	}
 
 }

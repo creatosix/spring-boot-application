@@ -13,7 +13,6 @@ import org.springframework.kafka.support.serializer.JsonSerializer;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import static org.apache.kafka.common.security.auth.SecurityProtocol.PLAINTEXT;
 
 @Configuration
