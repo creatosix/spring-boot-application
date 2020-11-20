@@ -1,6 +1,5 @@
 package com.example.conferenceConsumer;
 
-import config.ConsumerConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

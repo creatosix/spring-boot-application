@@ -1,10 +1,12 @@
-package config;
+package com.example.conferenceConsumer;
 
 import java.util.Arrays;
 import java.util.Properties;
 
 import com.example.conferenceConsumer.models.Speaker;
 import com.example.conferenceConsumer.models.SpeakerRepository;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
@@ -12,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 
 public class ConsumerConfig {
+    @Autowired
     SpeakerRepository speakerRepository;
 
     Properties props = new Properties();
@@ -28,16 +31,25 @@ public class ConsumerConfig {
     }
 
     public void receive() {
-        Speaker speaker = new Speaker();
-        speaker.setLastName(firstName);
+
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
         consumer.subscribe(Arrays.asList(topicName));
 
         while (true) {
             ConsumerRecords<String, String> records = consumer.poll(100);
-            for (ConsumerRecord<String, String> record : records)
+            for (ConsumerRecord<String, String> record : records) {
                 System.out.printf("offset = %d, key = %s, value = %s%n", record.offset(), record.key(), record.value());
-                speakerRepository.save(new Speaker(record.value));
+
+                ObjectMapper mapper = new ObjectMapper();
+                try {
+                    Speaker speaker = mapper.readValue(record.value(), Speaker.class);
+                    speakerRepository.save(speaker);
+                    System.out.println(speaker);
+                } catch (JsonProcessingException e) {
+                    e.printStackTrace();
+                }
+
+            }
         }
     }
 }
