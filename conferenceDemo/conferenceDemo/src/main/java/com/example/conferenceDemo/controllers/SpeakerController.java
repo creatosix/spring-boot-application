@@ -19,16 +19,3 @@ public class SpeakerController {
         kafkaTemplate.send("quickstart-events", speaker);
     }
 }
-
-    /*add to consumer program
-    @GetMapping
-    public List<Speaker> list() {
-        return speakerRepository.findAll();
-    }
-
-    @GetMapping
-    @RequestMapping("{id}")
-    public Speaker get(@PathVariable Long id) {
-        return speakerRepository.getOne(id);
-    }*/
-
