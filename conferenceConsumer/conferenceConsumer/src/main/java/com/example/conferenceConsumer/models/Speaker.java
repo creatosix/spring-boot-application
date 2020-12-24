@@ -90,4 +90,3 @@ public class Speaker implements Serializable {
     public Speaker() {
     }
 }
-
