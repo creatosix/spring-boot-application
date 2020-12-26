@@ -3,8 +3,8 @@ package com.example.conferenceConsumer;
 import java.util.Arrays;
 import java.util.Properties;
 
-import com.example.conferenceConsumer.models.Speaker;
-import com.example.conferenceConsumer.models.SpeakerRepository;
+import com.example.conferenceConsumer.models.Guest;
+import com.example.conferenceConsumer.models.GuestRepository;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -15,13 +15,13 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class ConsumerConfig {
-    SpeakerRepository speakerRepository;
+    GuestRepository guestRepository;
     Properties props = new Properties();
     String topicName = "quickstart-events";
 
     @Autowired
-    public ConsumerConfig(SpeakerRepository speakerRepository) {
-        this.speakerRepository = speakerRepository;
+    public ConsumerConfig(GuestRepository guestRepository) {
+        this.guestRepository = guestRepository;
         props.setProperty("bootstrap.servers", "localhost:9092");
         props.setProperty("group.id", "test");
         props.setProperty("enable.auto.commit", "true");
@@ -33,10 +33,10 @@ public class ConsumerConfig {
     public void receive() {
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
         consumer.subscribe(Arrays.asList(topicName));
-        if (speakerRepository == null){
-            System.out.println("speaker repository is null");
+        if (guestRepository == null){
+            System.out.println("guest repository is null");
         } else {
-            System.out.println("speaker repository is not null");
+            System.out.println("guest repository is not null");
         }
 
         while (true) {
@@ -45,9 +45,9 @@ public class ConsumerConfig {
                 System.out.printf("offset = %d, key = %s, value = %s%n", record.offset(), record.key(), record.value());
                 ObjectMapper mapper = new ObjectMapper();
                 try {
-                    Speaker speaker = mapper.readValue(record.value(), Speaker.class);
-                    speakerRepository.save(speaker);
-                    System.out.println(speaker);
+                    Guest guest = mapper.readValue(record.value(), Guest.class);
+                    guestRepository.save(guest);
+                    System.out.println(guest);
                 } catch (JsonProcessingException e) {
                     e.printStackTrace();
                 }

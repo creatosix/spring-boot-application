@@ -1,23 +1,38 @@
-package com.example.conferenceDemo.models;
+package com.example.conferenceConsumer.models;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
-public class Speaker implements Serializable {
-    private Long speakerId;
+@Entity(name = "guest")
+@Table(name = "speakers")
+public class Guest implements Serializable {
+    @Id
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    @Column(name = "guest_id")
+    private Long guestId;
 
+    @Column(name = "first_name")
     private String firstName;
+
+    @Column(name = "last_name")
     private String lastName;
+
+    @Column(name = "title")
     private String title;
+
+    @Column(name = "company")
     private String company;
-    private String speakerBio;
+
+    @Column(name = "guestBio")
+    private String guestBio;
 
 
-    public Long getSpeakerId() {
-        return speakerId;
+    public Long getGuestId() {
+        return guestId;
     }
 
-    public void setSpeakerId(Long speakerId) {
-        this.speakerId = speakerId;
+    public void setGuestId(Long guestId) {
+        this.guestId = guestId;
     }
 
     public String getFirstName() {
@@ -52,27 +67,26 @@ public class Speaker implements Serializable {
         this.company = company;
     }
 
-    public String getSpeakerBio() {
-        return speakerBio;
+    public String getGuestBio() {
+        return guestBio;
     }
 
-    public void setSpeakerBio(String speakerBio) {
-        this.speakerBio = speakerBio;
+    public void setGuestBio(String guestBio) {
+        this.guestBio = guestBio;
     }
 
     @Override
     public String toString() {
-        return "Speaker{" +
-                "speakerId=" + speakerId +
+        return "Guest{" +
+                "guestId=" + guestId +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", title='" + title + '\'' +
                 ", company='" + company + '\'' +
-                ", speakerBio='" + speakerBio + '\'' +
+                ", guestBio='" + guestBio + '\'' +
                 '}';
     }
 
-    public Speaker() {
+    public Guest() {
     }
 }
-
