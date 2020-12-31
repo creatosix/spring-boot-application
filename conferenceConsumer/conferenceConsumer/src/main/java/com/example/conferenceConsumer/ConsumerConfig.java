@@ -33,11 +33,6 @@ public class ConsumerConfig {
     public void receive() {
         KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
         consumer.subscribe(Arrays.asList(topicName));
-        if (guestRepository == null){
-            System.out.println("guest repository is null");
-        } else {
-            System.out.println("guest repository is not null");
-        }
 
         while (true) {
             ConsumerRecords<String, String> records = consumer.poll(100);
