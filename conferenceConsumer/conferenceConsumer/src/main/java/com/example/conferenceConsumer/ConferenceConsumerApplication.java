@@ -13,7 +13,6 @@ public class ConferenceConsumerApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ConferenceConsumerApplication.class, args);
-
 	}
 
 	@EventListener(ApplicationReadyEvent.class)
